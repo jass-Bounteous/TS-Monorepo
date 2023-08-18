@@ -1,8 +1,8 @@
 import express, { Application, Request, Response } from "express";
-import userTemplateCopy from "./schema/userSchema";
+import userTemplateCopy from "../package2/schema/userSchema";
 
 import DbConnect from "@ts-monorepo/package1";
-import { validUserType } from "./types";
+import { validUserType } from "../package2/types";
 import bcrypt from "bcrypt";
 // const app =express();
 const app: Application = express();
@@ -66,3 +66,4 @@ app.listen(5000, () => console.log("Server started"));
 // import fun from "@ts-monorepo/package1";
 
 // fun();
+// console.log("Run aavudhaa??");

@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "build": "npx tsc",
+    "dev":"nodemon ./workspaces/package2/index.ts",
     "start": "node ./dist/workspaces/package2/index.js"
   },
   "keywords": [],

@@ -2,12 +2,12 @@
   "name": "@ts-monorepo/package2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.ts",
     "check": "node index.js",
-    "start": "node ../../dist/workspaces/package2/index.js"
+    "start": "node ../dist/package2/index.js"
   },
   "keywords": [],
   "author": "",
