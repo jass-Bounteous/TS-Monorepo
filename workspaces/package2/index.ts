@@ -22,6 +22,26 @@ const isInValid = (data: validUserType): boolean => {
   );
 };
 
+const emptyDB = async () => {
+  console.log("called");
+  await userTemplateCopy
+    .deleteMany()
+    .then((data) => console.log(data))
+    .catch((err) => console.log(err));
+};
+
+const populateDB = async () => {
+  const dummyData = {
+    name: "tester",
+    emp_code: 3053,
+    password: "pass",
+    email: "tester@gmail.com",
+    mobile_no: 9876543210,
+    dob: "01-07-2001",
+  };
+  await userTemplateCopy.create(dummyData);
+};
+
 const addUserService = async (user: validUserType) => {
   const resData = await userTemplateCopy.create(user);
   return resData;
@@ -31,12 +51,14 @@ app.get("/app/user", async (req: Request, res: Response) => {
   userTemplateCopy
     .find()
     .then((data) => {
-      res.status(200).send(data);
+      if (data.length > 0) res.status(200).send(data);
+      else res.status(204).json({ msg: "No user data available" });
     })
     .catch((err) => {
       res.status(400).json({ msg: "Err: " + err });
     });
 });
+
 app.post("/app/user", async (req: Request, res: Response) => {
   const userData: validUserType = req.body;
   if (isInValid(userData)) {
@@ -45,7 +67,7 @@ app.post("/app/user", async (req: Request, res: Response) => {
   }
   try {
     // Check Duplication of Employee Code
-    const dbUser = await userTemplateCopy.findOne({ email: userData.email });
+    const dbUser = await userTemplateCopy.findOne({ name: userData.name });
     if (dbUser)
       return res.status(401).json({
         msg: "This Username has already been registered",
@@ -67,3 +89,6 @@ app.listen(5000, () => console.log("Server started"));
 
 // fun();
 // console.log("Run aavudhaa??");
+
+export default app;
+export { emptyDB, populateDB };
